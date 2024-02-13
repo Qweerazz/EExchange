@@ -10,6 +10,7 @@ import CryptoConvert from './converter/index';
 import { RateLimiter } from "./Bot/utils/RateLimiter";
 import { requests } from "./Bot/utils/Requests";
 import { BillingWorker } from "./Bot/utils/BillingWorker";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 const logLocation = 'start';
 const start = async (token: string, dbPath: string) => {
@@ -52,7 +53,7 @@ const start = async (token: string, dbPath: string) => {
     let limiter = new RateLimiter();
     ConfigManager.rateLimiter = limiter;
     ConfigManager.billings = new BillingWorker();
-    
+
 
     Logger.info(logLocation, 'Starting application');
     Logger.info(logLocation, 'Launching db');
@@ -87,8 +88,8 @@ const start = async (token: string, dbPath: string) => {
     Logger.info(logLocation, 'Data imported');
 
     Logger.info(logLocation, 'Starting bot');
-    const client = new Telegraf(token);
-    client.launch();
+    const client = new Telegraf(token, { telegram: { agent: new HttpsProxyAgent('user135836:10o6ly@185.113.137.95:9065') } });
+    client.launch({ dropPendingUpdates: true });
     let botmenu = new BotMenu(client, db);
     Logger.errorLogs.push(botmenu.LogToAdmin);
     Logger.info("Startup", 'Bot is completely active');

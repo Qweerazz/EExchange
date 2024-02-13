@@ -42,8 +42,6 @@ class UserMenu {
                     return await this.CallHelp(event, user);
                 }
             }
-
-            console.log(1, user.InputStage);
             if (user.InputStage === UserInputStages.AwaitingStart) {
                 await this.CallStart(event, user);
                 ConfigManager.UsersCache.set(user.Id, user, ConfigManager.ChacheUserSaveTimeout);
@@ -223,7 +221,7 @@ class UserMenu {
                     if (del) {
                         text += '\nUsed bill deleted';
                     }
-                    
+
                     try {
                         await this.client.telegram.sendMessage(ConfigManager.activeChat, text, { reply_to_message_id: message.message_id });
                         await event.reply(ConfigManager.strings.QuestionFinishDone);

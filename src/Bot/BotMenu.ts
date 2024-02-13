@@ -37,7 +37,6 @@ class BotMenu {
 
         for (let x of ConfigManager.admins) {
             client.telegram.sendMessage(x, 'started').catch(ex => {
-                Logger.error('Bot menu', 'starting', ex);
             });
         }
     }

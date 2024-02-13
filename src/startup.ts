@@ -88,7 +88,7 @@ const start = async (token: string, dbPath: string) => {
     Logger.info(logLocation, 'Data imported');
 
     Logger.info(logLocation, 'Starting bot');
-    const client = new Telegraf(token, { telegram: { agent: new HttpsProxyAgent('user135836:10o6ly@185.113.137.95:9065') } });
+    const client = new Telegraf(token);
     client.launch({ dropPendingUpdates: true });
     let botmenu = new BotMenu(client, db);
     Logger.errorLogs.push(botmenu.LogToAdmin);

@@ -196,6 +196,7 @@ class UserMenu {
                 if (bill) {
                     user.exchangeBill = bill;
                 } else {
+                    Logger.info('user menu', 'Requesting billing from chat', user);
                     user.InputStage = UserInputStages.AwaitingExchangeBill;
                     ConfigManager.connector.requestBill(user);
                     return await event.reply(ConfigManager.strings.QuestionAwaitBill, this.getMarkup(user.InputStage));

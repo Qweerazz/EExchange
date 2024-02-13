@@ -42,6 +42,7 @@ class ChatMenu {
 
     async MainMenu(event: Context) {
         if ('reply_to_message' in event.message && 'text' in event.message) {
+            Logger.info('Chat menu', 'chat menu');
             if (event.message.reply_to_message.from.id.toString() == ConfigManager.myID) {
                 let tmp: UserData = ConfigManager.RequestsCache.get(event.message.reply_to_message.message_id);
                 if (tmp) {

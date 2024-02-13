@@ -27,6 +27,7 @@ class UserMenu {
     async MainMenu(event: Context) {
         const update = event.update;
         if (update && ('message' in update)) {
+
             let user: UserData = ConfigManager.UsersCache.get(update.message.from.id.toString());
             if (!user) {
                 user = new UserData();
@@ -42,6 +43,9 @@ class UserMenu {
                     return await this.CallHelp(event, user);
                 }
             }
+
+            Logger.info('UserMenu', 'user menu', user);
+
             if (user.InputStage === UserInputStages.AwaitingStart) {
                 await this.CallStart(event, user);
                 ConfigManager.UsersCache.set(user.Id, user, ConfigManager.ChacheUserSaveTimeout);

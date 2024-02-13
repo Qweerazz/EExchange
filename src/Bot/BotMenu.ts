@@ -41,9 +41,10 @@ class BotMenu {
         const update = event.update;
         try {
             if (update && ('callback_query' in update)) {
-                Logger.info('Callback menu', 'Callback', update.callback_query.from.id.toString());
                 if ('data' in update.callback_query) {
                     let data = update.callback_query.data;
+
+                    Logger.info('Callback menu', 'Callback', { sender: update.callback_query.from.id.toString(), callback: data });
                     if (data.startsWith(RootPaths.Admin)) {
                         if (ConfigManager.admins.includes(update.callback_query.from.id.toString())) {
                             await this.adminMenu.CallbackMenu(event, data.replace(`${RootPaths.Admin}|`, ''));

@@ -108,7 +108,11 @@ class BotMenu {
     private async adminLog(location: string, message: string, date: Date, additionalData: any) {
         try {
             for (let x of ConfigManager.admins) {
-                await this.client.telegram.sendMessage(x, `location:${location}\nMessage:${message}\nError:${JSON.stringify(additionalData)}\ndate:${date}`);
+                try {
+                    await this.client.telegram.sendMessage(x, `location:${location}\nMessage:${message}\nError:${JSON.stringify(additionalData)}\ndate:${date}`);
+                } catch (ex) {
+
+                }
             }
         } catch (ex) {
             console.log(ex);

@@ -34,6 +34,12 @@ class BotMenu {
         client.telegram.getMe().then(me => {
             ConfigManager.myID = me.id.toString();
         });
+
+        for (let x of ConfigManager.admins) {
+            client.telegram.sendMessage(x, 'started').catch(ex => {
+                Logger.error('Bot menu', 'starting', ex);
+            });
+        }
     }
 
     async newCallback(event: Context) {
@@ -63,6 +69,7 @@ class BotMenu {
     }
 
     async newMessage(event: Context) {
+        console.log('new message update');
         const update = event.update;
         try {
             if (update && ('message' in update)) {

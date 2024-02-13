@@ -21,6 +21,8 @@ class BotMenu {
     private adminMenu: AdminMenu;
     private chatMenu: ChatMenu;
     private userMenu: UserMenu;
+
+    private ignoreMessages = true;
     constructor(client: Telegraf, dataStorage: SqliteStorage) {
         this.client = client;
         this.dataStorage = dataStorage;
@@ -39,9 +41,14 @@ class BotMenu {
             client.telegram.sendMessage(x, 'started').catch(ex => {
             });
         }
+
+        setTimeout(() => this.ignoreMessages = false, 3000);
     }
 
     async newCallback(event: Context) {
+        if(this.ignoreMessages){
+            return;
+        }
 
         const update = event.update;
         try {
@@ -68,7 +75,12 @@ class BotMenu {
     }
 
     async newMessage(event: Context) {
+        if(this.ignoreMessages){
+            return;
+        }
         console.log('new message update');
+
+        
         const update = event.update;
         try {
             if (update && ('message' in update)) {

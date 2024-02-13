@@ -89,7 +89,7 @@ const start = async (token: string, dbPath: string) => {
 
     Logger.info(logLocation, 'Starting bot');
     const client = new Telegraf(token);
-    client.launch({ dropPendingUpdates: true });
+    client.launch();
     let botmenu = new BotMenu(client, db);
     Logger.errorLogs.push(botmenu.LogToAdmin);
     Logger.info("Startup", 'Bot is completely active');
